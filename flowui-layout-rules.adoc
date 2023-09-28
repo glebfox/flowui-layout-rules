@@ -1,0 +1,90 @@
+= Layout Rules
+
+== Component Sizes
+
+
+== Margin, Spacing, Padding
+
+HBox, VBox, FlexLayout
+
+=== Spacing
+
+The `spacing` attribute indicates whether the space should be added between nested components in the direction of the container expansion.
+
+.Horizontal Layout without spacing
+image::images/hbox-no-spacing.png[]
+
+.Horizontal Layout with default spacing
+image::images/hbox-spacing.png[]
+
+.Vertical Layout with default spacing
+image::images/vbox-spacing.png[]
+
+
+Spacing is enabled by defaulf for `HorizontalLayout` and `VerticalLayout` components.
+
+==== Spacing Variants
+
+Five different spacing theme variants are available:
+
+[cols="1,1"]
+|===
+|Theme Variant |Usage Recommendation
+
+|`spacing-xs`
+| Extra-small space between items
+
+|`spacing-s`
+| Small space between items
+
+|`spacing`
+| Medium space between items
+
+|`spacing-l`
+| Large space between items
+
+|`spacing-xl`
+| Extra-large space between items
+|===
+
+
+Defining `spacing="true"` adds medium spacing to the component theme. To set other options, use the `getThemeList()` method, e.g:
+
+[source,java]
+----
+@ViewComponent
+private VerticalLayout vBox;
+
+@Subscribe
+public void onInit(final InitEvent event) {
+    vBox.getThemeList().add("spacing-xl");
+}
+----
+
+.Vertical Layout with spacing-lg theme variant
+image::images/vbox-spacing-lg.png[]
+
+=== Padding
+
+The `padding` attribute enables setting space between container borders and nested components.
+
+.Vertical Layout with padding
+image::images/vbox-padding.png[]
+
+Padding is enabled by defaulf for `VerticalLayout`.
+
+
+=== Margin
+
+The `margin` attribute enables setting space around container borders.
+
+.Vertical Layout with padding
+image::images/vbox-margin.png[]
+
+Margin is disabled by defaulf.
+
+== Alignment
+
+
+
+== Common Layout Mistakes
