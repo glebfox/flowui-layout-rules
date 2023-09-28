@@ -5,8 +5,6 @@
 
 == Margin, Spacing, Padding
 
-HBox, VBox, FlexLayout
-
 === Spacing
 
 The `spacing` attribute indicates whether the space should be added between nested components in the direction of the container expansion.
@@ -21,7 +19,7 @@ image::images/hbox-spacing.png[]
 image::images/vbox-spacing.png[]
 
 
-Spacing is enabled by defaulf for `HorizontalLayout` and `VerticalLayout` components.
+*Spacing* is enabled by defaulf for `HorizontalLayout` and `VerticalLayout` components.
 
 ==== Spacing Variants
 
@@ -71,7 +69,7 @@ The `padding` attribute enables setting space between container borders and nest
 .Vertical Layout with padding
 image::images/vbox-padding.png[]
 
-Padding is enabled by defaulf for `VerticalLayout`.
+*Padding* is enabled by defaulf for `VerticalLayout`.
 
 
 === Margin
@@ -81,10 +79,80 @@ The `margin` attribute enables setting space around container borders.
 .Vertical Layout with padding
 image::images/vbox-margin.png[]
 
-Margin is disabled by defaulf.
+*Margin* is disabled by defaulf.
 
 == Alignment
 
+=== JustifyContentMode
+
+The `justifyContent` attribute cooresponds to the CSS `justify-content` property which defines how the browser distributes space between and around content items along the *main-axis* of a flex container,
+
+[cols="1,1"]
+|===
+|Value |Descsription
+
+|`START` (defautl)
+|Items are positioned at the beginning of the container.
+
+|`CENTER`
+|Items are positioned at the center of the container.
+
+|`END`
+|Items are positioned at the end of the container.
+
+|`BETWEEN`
+|Items are positioned with space between the lines; first item is on the start line, last item on the end line.
+
+|`AROUND`
+|Items are evenly positioned in the line with equal space around them. Note that start and end gaps are half the size of the space between each item.
+
+|`EVENLY`
+|Items are positioned so that the spacing between any two items (and the space to the edges) is equal.
+|===
+
+If `flex-direction: column` which corresponds to `VerticalLayout` and `FlexLayout` with `flexDirection="COLUMN"` then `justifyContent` attribute works as follows:
+
+.Vertical Layout with justifyContent="START"
+image::images/vbox-justifyContent-start.png[]
+
+.Vertical Layout with justifyContent="CENTER"
+image::images/vbox-justifyContent-center.png[]
+
+.Vertical Layout with justifyContent="END"
+image::images/vbox-justifyContent-end.png[]
+
+.Vertical Layout with justifyContent="BETWEEN"
+image::images/vbox-justifyContent-between.png[]
+
+.Vertical Layout with justifyContent="AROUND"
+image::images/vbox-justifyContent-around.png[]
+
+.Vertical Layout with justifyContent="EVENLY"
+image::images/vbox-justifyContent-evenly.png[]
+
+
+If `flex-direction: row` which corresponds to `HorizontalLayout` and `FlexLayout` with `flexDirection="ROW"` then `justifyContent` attribute works as follows:
+
+.Horizontal Layout with justifyContent="START"
+image::images/hbox-justifyContent-start.png[]
+
+.Horizontal Layout with justifyContent="CENTER"
+image::images/hbox-justifyContent-center.png[]
+
+.Horizontal Layout with justifyContent="END"
+image::images/hbox-justifyContent-end.png[]
+
+.Horizontal Layout with justifyContent="BETWEEN"
+image::images/hbox-justifyContent-between.png[]
+
+.Horizontal Layout with justifyContent="AROUND"
+image::images/hbox-justifyContent-around.png[]
+
+.Horizontal Layout with justifyContent="EVENLY"
+image::images/hbox-justifyContent-evenly.png[]
 
 
 == Common Layout Mistakes
+
+
+margin-right, -left
