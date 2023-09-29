@@ -2,8 +2,99 @@
 
 == Component Sizes
 
+Components that implement `com.vaadin.flow.component.HasSize` have the following attributes: `width`, `minWidth`, `maxWidth`, `height`, `minHeight`, `maxHeight`. These properties map directly to the CSS properties `width`, `min-width`, `max-width`, `height`, `min-height` and `max-height`.
+
+Component dimensions, can be of the following types:
+
+* Content-based - `AUTO`
+* Fixed, e.g. `25em`
+* Relative (percent), e.g. `100%`
+
+image::images/size-types.png[]
+
+
+=== Content-dependent size
+
+The component will take enough space to fit its content.
+
+Examples:
+
+* For `Button`, the size is defined by `text` length.
+* For containers, the size is defined by the sum of all component sizes inside a container.
+
+.XML
+[source,xml]
+----
+<button text="Button" width="AUTO"/>
+----
+
+.Java
+[source,java]
+----
+button.setWidth("AUTO");
+----
+
+Components with content-dependent size will adjust their dimensions during screen layout initialization or when the content size is changed.
+
+image::images/content-dependent-size.png[]
+
+
+=== Fixed size
+
+Fixed size implies that the component dimensions will not change at runtime.
+
+.XML
+[source,xml]
+----
+<vbox width="20em" height="15em"/>
+----
+
+.java
+[source,java]
+----
+vBox.setWidth("20em");
+vBox.setHeight("15em");
+----
+
+image::images/fixed-size.png[]
+
+
+=== Relative size
+
+Relative size indicates the percentage of available space that will be occupied by the component.
+
+.XML
+[source,xml]
+----
+<button text="Button" width="50%"/>
+----
+
+.java
+[source,java]
+----
+button.setWidth("50%");
+----
+
+Components with relative size will react to changes in the amount of the available space and adjust their actual size on the screen.
+
+image::images/relative-size.png[]
+
+
+=== Container specifics
+
+// TODO:
+
+=== Component specifics
+
+// TODO:
+
+=== The expand option
+
+// TODO:
 
 == Margin, Spacing, Padding
+
+Certain container support defining the empty space around and inside them.
 
 === Spacing
 
@@ -217,8 +308,15 @@ image::images/hbox-alignItems-baseline.png[]
 
 The `alignSelf` attribute cooresponds to the CSS `align-self` property which defines an alignment for individual components inside the container. This individual alignment for the component overrides any alignment set by `alignItems`.
 
+// TODO: add examples
 
 == Common Layout Mistakes
 
 
 margin-right, -left
+stretch without undefined size
+
+width=100% instead of stretch in case of margins?
+
+
+== FLEX CONTAINER
