@@ -85,7 +85,7 @@ image::images/vbox-margin.png[]
 
 === JustifyContentMode
 
-The `justifyContent` attribute cooresponds to the CSS `justify-content` property which defines how the browser distributes space between and around content items along the *main-axis* of a flex container,
+The `justifyContent` attribute cooresponds to the CSS `justify-content` property which defines how the browser distributes space between and around content items along the *main-axis* of a flex container.
 
 [cols="1,1"]
 |===
@@ -150,6 +150,72 @@ image::images/hbox-justifyContent-around.png[]
 
 .Horizontal Layout with justifyContent="EVENLY"
 image::images/hbox-justifyContent-evenly.png[]
+
+=== AlignItems
+
+The `alignItems` attribute cooresponds to the CSS `align-items` property which defines the default behavior for how flex items are placed out along the cross axis on the current line. Think of it as the `justify-content` version for the *cross-axis* (perpendicular to the *main-axis*).
+
+[cols="1,1"]
+|===
+|Value |Descsription
+
+|`START`
+|Items are placed at the start of the cross axis.
+
+|`CENTER`
+|Items are centered in the cross-axis.
+
+|`END`
+|Items are placed at the end of the cross axis.
+
+|`STRETCH`
+|Items with *undefined size along the cross axis* are stretched to fit the container.
+
+|`BASELINE`
+|Items are positioned at the baseline of the container. Works for `flex-direction: row` only
+
+|`AUTO`
+|The element inherits its parent container's align-items property, or "stretch" if it has no parent container.
+|===
+
+If `flex-direction: column` which corresponds to `VerticalLayout` and `FlexLayout` with `flexDirection="COLUMN"` then `justifyContent` attribute works as follows:
+
+.Vertical Layout with alignItems="START"
+image::images/vbox-alignItems-start.png[]
+
+.Vertical Layout with alignItems="CENTER"
+image::images/vbox-alignItems-center.png[]
+
+.Vertical Layout with alignItems="END"
+image::images/vbox-alignItems-end.png[]
+
+.Vertical Layout with alignItems="STRETCH"
+image::images/vbox-alignItems-stretch.png[]
+
+
+If `flex-direction: row` which corresponds to `HorizontalLayout` and `FlexLayout` with `flexDirection="ROW"` then `justifyContent` attribute works as follows:
+
+.Horizontal Layout with alignItems="START"
+image::images/hbox-alignItems-start.png[]
+
+.Horizontal Layout with alignItems="CENTER"
+image::images/hbox-alignItems-center.png[]
+
+.Horizontal Layout with alignItems="END"
+image::images/hbox-alignItems-end.png[]
+
+.Horizontal Layout with alignItems="STRETCH"
+image::images/hbox-alignItems-stretch.png[]
+
+.Horizontal Layout with alignItems="BASELINE"
+image::images/hbox-alignItems-baseline.png[]
+
+
+=== AlignSelf
+
+// TODO: make sense when `alignSelf` will be available in XML
+
+The `alignSelf` attribute cooresponds to the CSS `align-self` property which defines an alignment for individual components inside the container. This individual alignment for the component overrides any alignment set by `alignItems`.
 
 
 == Common Layout Mistakes
