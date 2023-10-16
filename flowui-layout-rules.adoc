@@ -651,10 +651,17 @@ In this example, `TextField` has no size unit specified. As a result, the size v
 
 == Tips and Tricks
 
-// TODO: desribe
+An example of definig a responsive text field that has fixed size on big screens and 100% width on small ones
 
-width=100% + maxWidth
-width=100% instead of stretch in case of margins?
+[source,xml]
+----
+<hbox width="100%">
+    <textField width="100%" maxWidth="40em"/>
+    <button text="Button"/>
+</hbox>
+----
+
+image::images/responsive-text-field.gif[]
 
 == FlexLayout
 
