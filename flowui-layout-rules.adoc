@@ -554,18 +554,107 @@ image::images/hbox-alignSelf.png[]
 
 == Common Layout Mistakes
 
-// TODO: describe
+*Common mistake 1. Setting relative size for a component within a container with content-based size*
 
-margin-right, -left
-stretch without undefined size
+.Example of incorrect layout:
+[source,xml]
+----
+<vbox>
+    <dataGrid id="usersDataGrid" dataContainer="usersDc"
+              width="100%" height="100%">
+        <actions/>
+        <columns>
+            <column property="firstName"/>
+            <column property="lastName"/>
+            <column property="username"/>
+        </columns>
+    </dataGrid>
+</vbox>
+----
 
+In this example, `DataGrid` has 100% height, while the default height for `vbox` is `AUTO`, i.e. content-based. As a result, `DataGrid` is collapsed.
+
+.Example of relative size for a component within a container with content-based size
+image::images/dataGrid-relative-size.png[]
+
+*Common mistake 2. Not disabling padding for nested `vbox` containers*
+
+.Example of incorrect layout:
+[source,xml]
+----
+<layout>
+    <genericFilter ...>
+        ...
+    </genericFilter>
+
+    <vbox width="100%">
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            ...
+        </hbox>
+        <dataGrid id="usersDataGrid" ...>
+            ...
+        </dataGrid>
+    </vbox>
+    <hbox>
+        ...
+    </hbox>
+</layout>
+----
+
+In this example, `DataGrid` and corresponding `hbox` are placed inside a `vbox` which be default has padding enabled. As a result, components within `vbox` are not aligned with the others.
+
+.Example of nested Vertical Layout with not disabled padding
+image::images/vbox-incorrect-padding.png[]
+
+*Common mistake 3. Aligning components with relative size*
+
+.Example of incorrect layout:
+[source,xml]
+----
+<hbox alignItems="CENTER" padding="true" width="100%" minHeight="10em">
+    <span text="Span" height="100%"/>
+</hbox>
+----
+
+In this example, `span` has 100% height within `hbox` container which defines `alignItems="CENTER"`. As a result, text is placed in the top left corner.
+
+.Example of aligning components with relative size
+image::images/relative-size-alignment.png[]
+
+*Common mistake 4. Stretching components with fixed size*
+
+.Example of incorrect layout:
+[source,xml]
+----
+<hbox alignItems="STRETCH" padding="true" width="100%" minHeight="10em">
+    <button text="Button"/>
+    <button text="Button"/>
+    <button text="Button"/>
+</hbox>
+----
+
+In this example, buttions have default height defined in styles. As a result, buttons are not stretched.
+
+.Example of stretching components with fixed size
+image::images/fixed-size-stretching.png[]
+
+*Common mistake 5. Setting size without size unit*
+
+.Example of incorrect size:
+[source,xml]
+----
+<textField width="400"/>
+----
+
+In this example, `TextField` has no size unit specified. As a result, the size value is ignored, because there is no default size unit.
+
+
+== Tips and Tricks
+
+// TODO: desribe
+
+width=100% + maxWidth
 width=100% instead of stretch in case of margins?
-
-not defining size unit
-
-
-`Scroller` must have only one root component.
-
 
 == FlexLayout
 
