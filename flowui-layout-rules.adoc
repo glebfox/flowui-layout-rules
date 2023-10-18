@@ -2,19 +2,21 @@
 
 == Component Sizes
 
-Components that implement `com.vaadin.flow.component.HasSize` have the following attributes: `width`, `minWidth`, `maxWidth`, `height`, `minHeight`, `maxHeight`. These properties map directly to the CSS properties https://developer.mozilla.org/en-US/docs/Web/CSS/width[width], https://developer.mozilla.org/en-US/docs/Web/CSS/min-width[min-width], https://developer.mozilla.org/en-US/docs/Web/CSS/max-width[max-width], https://developer.mozilla.org/en-US/docs/Web/CSS/height[height], https://developer.mozilla.org/en-US/docs/Web/CSS/min-height[min-height] and https://developer.mozilla.org/en-US/docs/Web/CSS/max-height[max-height].
+Components that implement `com.vaadin.flow.component.HasSize` (e.g. `button`, `textField`, `dataGrid`, `vbox`, etc.) have the following attributes: `width`, `minWidth`, `maxWidth`, `height`, `minHeight`, `maxHeight`. These properties map directly to the CSS properties https://developer.mozilla.org/en-US/docs/Web/CSS/width[width], https://developer.mozilla.org/en-US/docs/Web/CSS/min-width[min-width], https://developer.mozilla.org/en-US/docs/Web/CSS/max-width[max-width], https://developer.mozilla.org/en-US/docs/Web/CSS/height[height], https://developer.mozilla.org/en-US/docs/Web/CSS/min-height[min-height] and https://developer.mozilla.org/en-US/docs/Web/CSS/max-height[max-height].
+
+TIP: `min`/`max` size attributes allow setting minimum and maximum values for the `width` and `height` of a component. This is useful for creating responsive designs, where elements need to adapt to different screen sizes. These properties can also be used to control the size of components on a view and prevent them from overflowing or becoming too large. See <<tipsAndTricks, Tips and Tricks>> for practical example.
 
 Component dimensions, can be of the following types:
 
 * Content-based - `AUTO`
 * Fixed, e.g. `25em`
-* Relative (percent), e.g. `100%`
+* Relative (percent) to parent layout, e.g. `100%`
 
 image::images/size-types.png[]
 
-NOTE: the size value must be a correct CSS size string
+IMPORTANT: the size value must be a correct CSS size string
 
-=== Content-dependent size
+=== Content-based size
 
 The component will take enough space to fit its content.
 
@@ -35,9 +37,9 @@ Examples:
 button.setWidth("AUTO");
 ----
 
-Components with content-dependent size will adjust their dimensions during screen layout initialization or when the content size is changed.
+Components with content-based size will adjust their dimensions during screen layout initialization or when the content size is changed.
 
-image::images/content-dependent-size.png[]
+image::images/content-based-size.png[]
 
 
 === Fixed size
@@ -89,11 +91,11 @@ image::images/relative-size.png[]
 
 The root `<layout>` element is a vertical container (`<vbox>`), which by default has 100% width and height.
 
-`Scroller` must have fixed or relative (but not `AUTO`) width and height. Components inside `Scroller`, positioned in the scrolling direction, may not have relative dimensions.
+`scroller` must have fixed or relative (but not `AUTO`) width and height. Components inside `scroller`, positioned in the scrolling direction, may not have relative dimensions.
 
 === Component specifics
 
-There is no need to explicitly set `height="100%"` or expand `DataGrid` within `VerticalLayout` or `ViewLayout`, because its https://developer.mozilla.org/en-US/docs/Web/CSS/flex-grow[flex-grow] css property is set to `1` (which means that by default it is already expanded in the parent layout), but it is recommended to set `minHeight` so that if there is not enough vertical space it won't be collapsed.
+There is no need to explicitly set `height="100%"` or expand `dataGrid` within `vbox` or root `<layout>` elements, because its https://developer.mozilla.org/en-US/docs/Web/CSS/flex-grow[flex-grow] css property is set to `1` (which means that by default it is already expanded in the parent layout), but it is recommended to set `minHeight` so that if there is not enough vertical space it won't be collapsed.
 
 
 === The expand option
@@ -128,7 +130,7 @@ NOTE: expanding a component effectively means that the CSS https://developer.moz
 
 == Margin, Spacing, Padding
 
-Certain container support defining the empty space around and inside them.
+With margin, padding and spacing you can define an empty space around components and inside them.
 
 === Spacing
 
@@ -144,7 +146,7 @@ image::images/hbox-spacing.png[]
 image::images/vbox-spacing.png[]
 
 
-*Spacing* is enabled by defaulf for `HorizontalLayout` and `VerticalLayout` components.
+*Spacing* is on by default for `vbox` and `hbox` components.
 
 ==== Spacing Variants
 
@@ -192,17 +194,17 @@ The `padding` attribute enables setting space between container borders and nest
 .Vertical Layout with padding
 image::images/vbox-padding.png[]
 
-*Padding* is enabled by defaulf for `VerticalLayout`.
+*Padding* is on by default for `vbox`. You can turn it off by setting the `padding` attribute to `false`. For `hbox`, padding is off by default and can be turned on by setting the `padding` attribute to `true`.
 
 
 === Margin
 
-The `margin` attribute enables setting space around container borders.
+*Margin* is a space around container borders.
 
 .Vertical Layout with padding
 image::images/vbox-margin.png[]
 
-*Margin* is disabled by defaulf.
+*Margin* is disabled by default. You can enable it using the `margin` attribute."
 
 == Alignment
 
@@ -233,7 +235,7 @@ The `justifyContent` attribute cooresponds to the CSS https://developer.mozilla.
 |Items are positioned so that the spacing between any two items (and the space to the edges) is equal.
 |===
 
-If `flex-direction: column` which corresponds to `VerticalLayout` and `FlexLayout` with `flexDirection="COLUMN"` then `justifyContent` attribute works as follows:
+If `flex-direction: column` which corresponds to `vbox` and `flexLayout` with `flexDirection="COLUMN"` then `justifyContent` attribute works as follows:
 
 [source,xml]
 ----
@@ -309,7 +311,7 @@ image::images/vbox-justifyContent-around.png[]
 image::images/vbox-justifyContent-evenly.png[]
 
 
-If `flex-direction: row` which corresponds to `HorizontalLayout` and `FlexLayout` with `flexDirection="ROW"` then `justifyContent` attribute works as follows:
+If `flex-direction: row` which corresponds to `hbox` and `flexLayout` with `flexDirection="ROW"` then `justifyContent` attribute works as follows:
 
 [source,xml]
 ----
@@ -410,7 +412,7 @@ The `alignItems` attribute cooresponds to the CSS https://developer.mozilla.org/
 |The element inherits its parent container's align-items property, or "stretch" if it has no parent container.
 |===
 
-If `flex-direction: column` which corresponds to `VerticalLayout` and `FlexLayout` with `flexDirection="COLUMN"` then `justifyContent` attribute works as follows:
+If `flex-direction: column` which corresponds to `vbox` and `flexLayout` with `flexDirection="COLUMN"` then `justifyContent` attribute works as follows:
 
 [source,xml]
 ----
@@ -461,7 +463,7 @@ image::images/vbox-alignItems-end.png[]
 image::images/vbox-alignItems-stretch.png[]
 
 
-If `flex-direction: row` which corresponds to `HorizontalLayout` and `FlexLayout` with `flexDirection="ROW"` then `justifyContent` attribute works as follows:
+If `flex-direction: row` which corresponds to `hbox` and `flexLayout` with `flexDirection="ROW"` then `justifyContent` attribute works as follows:
 
 [source,xml]
 ----
@@ -601,7 +603,7 @@ image::images/dataGrid-relative-size.png[]
 </layout>
 ----
 
-In this example, `DataGrid` and corresponding `hbox` are placed inside a `vbox` which be default has padding enabled. As a result, components within `vbox` are not aligned with the others.
+In this example, `dataGrid` and corresponding `hbox` are placed inside a `vbox` which be default has padding enabled. As a result, components within `vbox` are not aligned with the others.
 
 .Example of nested Vertical Layout with not disabled padding
 image::images/vbox-incorrect-padding.png[]
@@ -646,10 +648,10 @@ image::images/fixed-size-stretching.png[]
 <textField width="400"/>
 ----
 
-In this example, `TextField` has no size unit specified. As a result, the size value is ignored, because there is no default size unit.
+In this example, `textField` has no size unit specified. As a result, the size value is ignored, because there is no default size unit.
 
 
-== Tips and Tricks
+== Tips and Tricks [[tipsAndTricks]]
 
 An example of definig a responsive text field that has fixed size on big screens and 100% width on small ones
 
@@ -663,307 +665,3 @@ An example of definig a responsive text field that has fixed size on big screens
 
 image::images/responsive-text-field.gif[]
 
-== FlexLayout
-
-A layout component that implements https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes[Flexbox]. It uses the default https://developer.mozilla.org/en-US/docs/Web/CSS/flex-direction[flex-direction] and doesn't have any predetermined width or height.
-
-=== FlexDirection
-
-The `flexDirection` attribute cooresponds to the CSS https://developer.mozilla.org/en-US/docs/Web/CSS/flex-direction[flex-direction] property which defines how flex items are placed in the flex container, thus defining the main axis and the direction  (normal or reversed).
-
-[cols="1,1"]
-|===
-|Value |Descsription
-
-|`ROW` (default)
-|The items are displayed horizontally, as a row.
-
-|`ROW_REVERSE`
-|The items are displayed horizontally, as a row in reverse order.
-
-|`COLUMN`
-|The items are displayed vertically, as a column.
-
-|`COLUMN_REVERSE`
-|The items are displayed vertically, as a column in reverse order.
-|===
-
-
-[source,xml]
-----
-<flexLayout flexDirection="ROW" css="gap: 0.5em">
-    <button text="Button 1"/>
-    <button text="Button 2"/>
-    <button text="Button 3"/>
-</flexLayout>
-----
-
-.Flex Layout with flexDirection="ROW"
-image::images/flexLayout-flexDirection-row.png[]
-
-[source,xml]
-----
-<flexLayout flexDirection="ROW_REVERSE" css="gap: 0.5em">
-    <button text="Button 1"/>
-    <button text="Button 2"/>
-    <button text="Button 3"/>
-</flexLayout>
-----
-
-.Flex Layout with flexDirection="ROW_REVERSE"
-image::images/flexLayout-flexDirection-row_reverse.png[]
-
-[source,xml]
-----
-<flexLayout flexDirection="COLUMN">
-    <button text="Button 1"/>
-    <button text="Button 2"/>
-    <button text="Button 3"/>
-</flexLayout>
-----
-
-.Flex Layout with flexDirection="COLUMN"
-image::images/flexLayout-flexDirection-column.png[]
-
-[source,xml]
-----
-<flexLayout flexDirection="COLUMN_REVERSE">
-    <button text="Button 1"/>
-    <button text="Button 2"/>
-    <button text="Button 3"/>
-</flexLayout>
-----
-
-.Flex Layout with flexDirection="COLUMN_REVERSE"
-image::images/flexLayout-flexDirection-column_reverse.png[]
-
-=== FlexWrap
-
-The `flexWrap` attribute cooresponds to the CSS https://developer.mozilla.org/en-US/docs/Web/CSS/flex-wrap[flex-wrap] property which defines whether flex items are forced onto one line or can wrap onto multiple lines. If wrapping is allowed, it sets the direction that lines are stacked.
-
-[cols="1,1"]
-|===
-|Value |Descsription
-
-|`NOWRAP` (default)
-|The flex items are laid out in a single line which may cause the flex container to overflow.
-
-|`WRAP`
-|The flex items break into multiple lines.
-
-|`WRAP_REVERSE`
-|The flex items break into multiple lines in reverse order.
-|===
-
-[source,xml]
-----
-<flexLayout flexWrap="NOWRAP"
-            css="gap: 0.5em" width="20em">
-    <button text="Button 1" width="9em"/>
-    <button text="Button 2" width="9em"/>
-    <button text="Button 3" width="9em"/>
-</flexLayout>
-----
-
-.Flex Layout with flexWrap="NOWRAP"
-image::images/flexLayout-flexWrap-nowrap.png[]
-
-[source,xml]
-----
-<flexLayout flexWrap="WRAP"
-            css="gap: 0.5em" width="20em">
-    <button text="Button 1" width="9em"/>
-    <button text="Button 2" width="9em"/>
-    <button text="Button 3" width="9em"/>
-</flexLayout>
-----
-
-.Flex Layout with flexWrap="WRAP"
-image::images/flexLayout-flexWrap-wrap.png[]
-
-[source,xml]
-----
-<flexLayout flexWrap="WRAP_REVERSE"
-            css="gap: 0.5em" width="20em">
-    <button text="Button 1" width="9em"/>
-    <button text="Button 2" width="9em"/>
-    <button text="Button 3" width="9em"/>
-</flexLayout>
-----
-
-.Flex Layout with flexWrap="WRAP_REVERSE"
-image::images/flexLayout-flexWrap-wrap_reverse.png[]
-
-=== JustifyContentMode
-
-The `justifyContent` attribute cooresponds to the CSS https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content[justify-content] property which defines how the browser distributes space between and around content items along the *main-axis* of a flex container.
-
-[cols="1,1"]
-|===
-|Value |Descsription
-
-|`START` (default)
-|Items are positioned at the beginning of the container.
-
-|`CENTER`
-|Items are positioned at the center of the container.
-
-|`END`
-|Items are positioned at the end of the container.
-
-|`BETWEEN`
-|Items are positioned with space between the lines; first item is on the start line, last item on the end line.
-
-|`AROUND`
-|Items are evenly positioned in the line with equal space around them. Note that start and end gaps are half the size of the space between each item.
-
-|`EVENLY`
-|Items are positioned so that the spacing between any two items (and the space to the edges) is equal.
-|===
-
-=== AlignItems
-
-The `alignItems` attribute cooresponds to the CSS https://developer.mozilla.org/en-US/docs/Web/CSS/align-items[align-items] property which defines the default behavior for how flex items are placed out along the cross axis on the current line. Think of it as the `justify-content` version for the *cross-axis* (perpendicular to the *main-axis*).
-
-[cols="1,1"]
-|===
-|Value |Descsription
-
-|`START`
-|Items are placed at the start of the cross axis.
-
-|`CENTER`
-|Items are centered in the cross-axis.
-
-|`END`
-|Items are placed at the end of the cross axis.
-
-|`STRETCH`
-|Items with *undefined size along the cross axis* are stretched to fit the container.
-
-|`BASELINE`
-|Items are positioned at the baseline of the container. Works for `flex-direction: row` only
-
-|`AUTO`
-|The element inherits its parent container's align-items property, or "stretch" if it has no parent container.
-|===
-
-=== ContentAlignment
-
-The `contentAlignment` attribute cooresponds to the CSS https://developer.mozilla.org/en-US/docs/Web/CSS/align-content[align-content] property which defines the align of a flex container's lines within when there is extra space in the *cross-axis*, similar to how `justify-content` aligns individual items within the *main-axis*.
-
-NOTE: This property only takes effect on *multi-line* flexible containers, where `flex-wrap` is set to either `wrap` or `wrap-reverse`). A *single-line* flexible container (i.e. where `flex-wrap` is set to its default value, `no-wrap`) will not reflect `align-content`.
-
-
-[cols="1,1"]
-|===
-|Value |Descsription
-
-|`START`
-|Items are positioned at the beginning of the container.
-
-|`CENTER`
-|Items are positioned at the center of the container.
-
-|`END`
-|Items are positioned at the end of the container.
-
-|`STRETCH`
-|Items are stretched to fit the container.
-
-|`SPACE_BETWEEN`
-|Items are distributed evenly inside the container. The first item is flush with the start, the last is flush with the end.
-
-|`SPACE_AROUND`
-|Items are distributed evenly inside the container. Items have a half-size space on either end.
-|===
-
-[source,xml]
-----
-<flexLayout contentAlignment="START"
-            css="gap: 0.5em"
-            width="20em" minHeight="10em"
-            flexWrap="WRAP">
-    <button text="Button" width="9em"/>
-    <button text="Button" width="9em"/>
-    <button text="Button" width="9em"/>
-</flexLayout>
-----
-
-.Flex Layout with contentAlignment="START"
-image::images/flexLayout-contentAlignment-start.png[]
-
-[source,xml]
-----
-<flexLayout contentAlignment="CENTER"
-            css="gap: 0.5em"
-            width="20em" minHeight="10em"
-            flexWrap="WRAP">
-    <button text="Button" width="9em"/>
-    <button text="Button" width="9em"/>
-    <button text="Button" width="9em"/>
-</flexLayout>
-----
-
-.Flex Layout with contentAlignment="CENTER"
-image::images/flexLayout-contentAlignment-center.png[]
-
-[source,xml]
-----
-<flexLayout contentAlignment="END"
-            css="gap: 0.5em"
-            width="20em" minHeight="10em"
-            flexWrap="WRAP">
-    <button text="Button" width="9em"/>
-    <button text="Button" width="9em"/>
-    <button text="Button" width="9em"/>
-</flexLayout>
-----
-
-.Flex Layout with contentAlignment="END"
-image::images/flexLayout-contentAlignment-end.png[]
-
-[source,xml]
-----
-<flexLayout contentAlignment="STRETCH"
-            css="gap: 0.5em"
-            width="20em" minHeight="10em"
-            flexWrap="WRAP">
-    <button text="Button" width="9em" height="AUTO"/>
-    <button text="Button" width="9em" height="AUTO"/>
-    <button text="Button" width="9em" height="AUTO"/>
-</flexLayout>
-----
-
-.Flex Layout with contentAlignment="STRETCH"
-image::images/flexLayout-contentAlignment-stretch.png[]
-
-[source,xml]
-----
-<flexLayout contentAlignment="SPACE_BETWEEN"
-            css="gap: 0.5em"
-            width="20em" minHeight="10em"
-            flexWrap="WRAP">
-    <button text="Button" width="9em"/>
-    <button text="Button" width="9em"/>
-    <button text="Button" width="9em"/>
-</flexLayout>
-----
-
-.Flex Layout with contentAlignment="SPACE_BETWEEN"
-image::images/flexLayout-contentAlignment-space_between.png[]
-
-[source,xml]
-----
-<flexLayout contentAlignment="SPACE_AROUND"
-            css="gap: 0.5em"
-            width="20em" minHeight="10em"
-            flexWrap="WRAP">
-    <button text="Button" width="9em"/>
-    <button text="Button" width="9em"/>
-    <button text="Button" width="9em"/>
-</flexLayout>
-----
-
-.Flex Layout with contentAlignment="SPACE_AROUND"
-image::images/flexLayout-contentAlignment-space_around.png[]
