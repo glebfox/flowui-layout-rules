@@ -134,7 +134,7 @@ With margin, padding and spacing you can define an empty space around components
 
 === Spacing
 
-The `spacing` attribute indicates whether the space should be added between nested components in the direction of the container expansion.
+The `spacing` attribute toggles `spacing` theme setting for the component. If a theme supports this attribute, it will apply or remove spacing to the component.
 
 .Horizontal Layout without spacing
 image::images/hbox-no-spacing.png[]
@@ -145,12 +145,11 @@ image::images/hbox-spacing.png[]
 .Vertical Layout with default spacing
 image::images/vbox-spacing.png[]
 
-
 *Spacing* is on by default for `vbox` and `hbox` components.
 
-==== Spacing Variants
+==== Spacing variants
 
-Five different spacing theme variants are available:
+The `spacing` attribute implicitly adds medium spacing to the component theme, which is equivalent to defining `themeNames="spacing"`. To set other options, use the `themeNames` attribute explicitly. Five different spacing theme variants are available:
 
 [cols="1,1"]
 |===
@@ -172,8 +171,7 @@ Five different spacing theme variants are available:
 | Extra-large space between items
 |===
 
-
-Defining `spacing="true"` adds medium spacing to the component theme. To set other options, use the `themeNames` attribute, e.g:
+Example of adding `spacing-xl` stacing variant:
 
 [source,java]
 ----
